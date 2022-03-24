@@ -11,25 +11,29 @@ public interface GuestbookService {
 
     PageResultDTO<Guestbook,GuestbookDTO> getList(PageRequestDTO pageRequestDTO);
 
-    default Guestbook dtoToEntity(GuestbookDTO guestbookDTO){
-        Guestbook guestbook = Guestbook.builder()
-                .gno(guestbookDTO.getGno())
-                .title(guestbookDTO.getTitle())
-                .content(guestbookDTO.getContent())
-                .writer(guestbookDTO.getWriter())
+    default Guestbook dtoToEntity(GuestbookDTO dto){
+
+        Guestbook entity = Guestbook.builder()
+                .gno(dto.getGno())
+                .title(dto.getTitle())
+                .content(dto.getContent())
+                .writer(dto.getWriter())
                 .build();
 
-        return guestbook;
+        return entity;
     }
-    default GuestbookDTO entityToDto(Guestbook guestbook){
-        GuestbookDTO guestbookDTO = GuestbookDTO.builder()
-                .gno(guestbook.getGno())
-                .title(guestbook.getTitle())
-                .content(guestbook.getContent())
-                .writer(guestbook.getWriter())
-                .regDate(guestbook.getRegDate())
-                .modDate(guestbook.getModDate())
+
+    default  GuestbookDTO entityToDto(Guestbook entity){
+
+        GuestbookDTO dto =GuestbookDTO.builder()
+                .gno(entity.getGno())
+                .title(entity.getTitle())
+                .content(entity.getContent())
+                .writer(entity.getWriter())
+                .regDate(entity.getRegDate())
+                .modDate(entity.getModDate())
                 .build();
-        return guestbookDTO;
+
+        return dto;
     }
 }
