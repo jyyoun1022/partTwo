@@ -13,6 +13,7 @@ import springboot.partTwo.dto.PageResultDTO;
 import springboot.partTwo.entity.Guestbook;
 import springboot.partTwo.repository.GuestbookRepository;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 @Service
@@ -24,7 +25,9 @@ public class GuestbookServiceImpl implements GuestbookService{
 
     @Override
     public Long register(GuestbookDTO dto) {
-        return dtoToEntity(dto).getGno();
+        Guestbook guestbook = dtoToEntity(dto);
+        Guestbook save = repository.save(guestbook);
+        return guestbook.getGno();
     }
 
     @Override
@@ -35,6 +38,31 @@ public class GuestbookServiceImpl implements GuestbookService{
         Function<Guestbook,GuestbookDTO>fn=(en->entityToDto(en));
 
         return new PageResultDTO<>(result,fn);
+
+    }
+
+    @Override
+    public GuestbookDTO read(Long gno) {
+        Optional<Guestbook> result = repository.findById(gno);
+
+        return result.isPresent()? entityToDto(result.get()) : null;
+        }
+
+    @Override
+    public void modify(GuestbookDTO guestbookDTO) {
+        Optional<Guestbook> result = repository.findById(guestbookDTO.getGno());
+        if(result.isPresent()){
+            Guestbook guestbook = result.get();
+            guestbook.changeTitle(guestbookDTO.getTitle());
+            guestbook.changeContent(guestbookDTO.getContent());
+
+            repository.save(guestbook);
+        }
+    }
+
+    @Override
+    public void remove(Long gno) {
+        repository.deleteById(gno);
 
     }
 }
