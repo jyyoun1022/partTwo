@@ -54,6 +54,18 @@
                 }
                 actionForm.attr("action","/guestbook/modify").attr("method","post").submit();
             });
+
+            $(".listBtn").click(function(){
+                var pageInfo = $("input[name='page']");
+
+                actionForm.empty();
+                actionForm.append(pageInfo);
+
+                actionForm.attr("action","/guestbook/list").attr("method","get");
+
+                console.log(actionForm.html());
+                actionForm.submit();
+            })
         </script>
     </th:block>
 </th:block>
