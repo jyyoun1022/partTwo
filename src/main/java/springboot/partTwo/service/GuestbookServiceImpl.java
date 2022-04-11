@@ -32,6 +32,7 @@ public class GuestbookServiceImpl implements GuestbookService{
     public Long register(GuestbookDTO dto) {
         Guestbook guestbook = dtoToEntity(dto);
         Guestbook save = repository.save(guestbook);
+        
         return guestbook.getGno();
     }
 

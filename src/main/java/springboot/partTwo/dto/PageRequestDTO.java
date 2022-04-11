@@ -12,7 +12,7 @@ import org.springframework.data.domain.Sort;
 @Builder
 @AllArgsConstructor
 @Data
-public class PageRequestDTO {
+public class PageRequestDTO {//페이지 요청
 
     private int page;
 
